@@ -1,13 +1,5 @@
-
 '''
 @see https://github.com/fchollet/keras/blob/master/examples/lstm_text_generation.py
-Example script to generate text from Nietzsche's writings.
-At least 20 epochs are required before the generated text
-starts sounding coherent.
-It is recommended to run this script on GPU, as recurrent
-networks are quite computationally intensive.
-If you try this script on new data, make sure your corpus
-has at least ~100k characters. ~1M is better.
 '''
 
 from __future__ import print_function
@@ -19,7 +11,6 @@ from keras.utils.data_utils import get_file
 import numpy as np
 import random
 import sys
-
 
 text = open('canceled.txt').read().lower()
 print('corpus length:', len(text))
@@ -48,7 +39,6 @@ for i, sentence in enumerate(sentences):
         X[i, t, char_indices[char]] = 1
     y[i, char_indices[next_chars[i]]] = 1
 
-
 # build the model: a single LSTM
 print('Build model...')
 model = Sequential()
@@ -59,7 +49,6 @@ model.add(Activation('softmax'))
 optimizer = RMSprop(lr=0.01)
 model.compile(loss='categorical_crossentropy', optimizer=optimizer)
 
-
 # train the model, output generated text after each iteration
 for iteration in range(1, 6):
     print()
@@ -68,14 +57,5 @@ for iteration in range(1, 6):
     model.fit(X, y,
               batch_size=128,
               epochs=1)
-
-    #if iteration < 5:
-    #    continue
-
-    #start_index = random.randint(0, len(text) - maxlen - 1)
-    #while text[start_index] != "\n":
-    #    start_index = start_index + 1
-    # on commence par un début de sequence...
-    #start_index = start_index + 1
 
 model.save_weights('weights.h5')
