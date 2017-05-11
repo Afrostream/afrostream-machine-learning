@@ -17,7 +17,7 @@ SEQUENCE =
  b = activation abonnement
  m = lecture d'un film
  s = lecture d'une serie
- eN = lecture de l'episode X
+ eN = lecture de l'episode N
  k = skip (lecture a durée < 5min)
  x = fin d'abonnement
 ```

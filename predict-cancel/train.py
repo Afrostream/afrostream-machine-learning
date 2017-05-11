@@ -20,7 +20,7 @@ char_indices = dict((c, i) for i, c in enumerate(chars))
 indices_char = dict((i, c) for i, c in enumerate(chars))
 
 # cut the text in semi-redundant sequences of maxlen characters
-maxlen = 64
+maxlen = 32
 step = 3
 sentences = []
 next_chars = []
@@ -46,7 +46,7 @@ model.add(LSTM(128, input_shape=(maxlen, len(chars))))
 model.add(Dense(len(chars)))
 model.add(Activation('softmax'))
 
-optimizer = RMSprop(lr=0.01)
+optimizer = RMSprop(lr=0.001)
 model.compile(loss='categorical_crossentropy', optimizer=optimizer)
 
 # train the model, output generated text after each iteration
@@ -55,7 +55,7 @@ for iteration in range(1, 6):
     print('-' * 50)
     print('Iteration', iteration)
     model.fit(X, y,
-              batch_size=128,
+              batch_size=16,
               epochs=1)
 
 model.save_weights('weights.h5')

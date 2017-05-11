@@ -9,7 +9,7 @@ import random
 import sys
 
 # on defini arbitrairement
-maxlen = 64
+maxlen = 32
 
 # on relit les caractère du fichier canceled
 text = open('canceled.txt').read().lower()
@@ -25,7 +25,7 @@ model.add(LSTM(128, input_shape=(maxlen, len(chars))))
 model.add(Dense(len(chars)))
 model.add(Activation('softmax'))
 
-optimizer = RMSprop(lr=0.01)
+optimizer = RMSprop(lr=0.001)
 
 # chargement des poids
 model.load_weights("weights.h5")
@@ -60,11 +60,11 @@ for l, sentence in enumerate(sentences):
 
     sys.stdout.write("line %d: %s %s" % (l, userId, bcolors.OKBLUE+sentence))
     # on prend les 64 derniers chars
-    sentence = sentence[-64:]
+    sentence = sentence[-maxlen:]
     # on pop, le debut pour y ajouter un "b" de begin
     sentence = 'b' + sentence[1:]
     # on pad a gauche avec des "."
-    sentence.rjust(64, '.')
+    sentence.rjust(maxlen, '.')
 
     #
     generated = '' + sentence
@@ -87,6 +87,10 @@ for l, sentence in enumerate(sentences):
         sys.stdout.write(next_char)
 
         if next_char == '.' or next_char == 'x':
+            if i > 10:
+                sys.stdout.write(bcolors.WARNING+' [OK]')
+            else:
+                sys.stdout.write(bcolors.FAIL+' [FUTUR CANCELED]')
             break
     sys.stdout.write(bcolors.ENDC+"\n")
     sys.stdout.flush()
