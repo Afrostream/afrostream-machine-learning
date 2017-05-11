@@ -1,0 +1,20 @@
+{
+  "name": "predict-cancel",
+  "version": "1.0.0",
+  "description": "on veut prédire les désabonnements volontaires",
+  "main": "activeCsvToText0.js",
+  "dependencies": {
+    "csv-to-array": "^1.0.2",
+    "csvtojson": "^1.1.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "train": "python3.5 train.py",
+    "parseActiveCsv": "node activeCsvToText.js > active.txt",
+    "parseCanceledCsv": "node canceledCsvToText.js > canceled.txt",
+    "test": "python3.5 test.py"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
