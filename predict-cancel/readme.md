@@ -53,3 +53,12 @@ on se base sur l'implémentation faite par https://github.com/fchollet/keras/blo
 une sequence de lecture aura la for
 
 l'idée est de padder gauche les sequences de lectures par un .
+
+exemple d'output de npm run test :
+
+![output](https://github.com/Afrostream/afrostream-machine-learning/raw/master/predict-cancel/output.jpg)
+
+chaque ligne a la forme suivante :
+line {numero}: {userId} {sequence active}{sequence predite}
+
+en bleu donc les sequences actives, en vert la suite prédite par le RNN.
